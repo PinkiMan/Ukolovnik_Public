@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>Rozvrh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='timetable.css') }}">
+</head>
+<body>
+    <div class="topnav">
+      <a href="/homeworks">Seznam úkolů</a>
+      <a href="/add">Přidat úkol</a>
+      <a class="active" href="/timetable">Rozvrh hodin</a>
+    </div>
+
+    <h2>Rozvrh hodin</h2>
+
+<div class="block">
+<div class="container">
+<table>
+     <thead>
+  <tr>
+    {% for header in headings %}
+    <th class="headers">{{ header }}</th>
+    {% endfor %}
+  </tr>
+     </thead>
+    <tbody>
+  {% for row in data %}
+  <tr class="cell">
+      <td>{{ day[data.index(row)] }}</td>
+    {% for cell in row %}
+      {% if cell[0][2] == None %}
+        <td></td>
+      {% else %}
+        <td>{{ cell[0][2]}}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+<div class="upload">
+    <a class="addtimetable">Přidat rozvrh hodin</a>
+    <div class="filed">
+        <form action = "/timetable" method = "POST"
+              enctype = "multipart/form-data">
+             <input type = "file" name = "file" />
+             <input type = "submit"/>
+        </form>
+    </div>
+
+    <a class="addsupl">Přidat suplovaní</a>
+    <div class="filed2">
+        <form action = "/timetable" method = "POST"
+              enctype = "multipart/form-data">
+             <input type = "file" name = "file2" />
+             <input type = "submit"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

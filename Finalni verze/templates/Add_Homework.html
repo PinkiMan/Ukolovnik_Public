@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>Přidat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_homework.css') }}">
+</head>
+{% extends 'base.html'%}
+{% block content %}
+<body>
+
+    <div class="topnav">
+      <a href="/homeworks">Seznam úkolů</a>
+      <a class="active" href="/add">Přidat úkol</a>
+      <a href="/timetable">Rozvrh hodin</a>
+    </div>
+
+    <h2>Přidat úkol</h2>
+
+
+    <div class="block">
+    <div class="container">
+    <h3> Vyberte datumy: </h3>
+    <form action="" method='POST' name="myform">
+        {{ form.csrt_token }}
+        {{ form.startdate.label }} {{form.startdate(class='datepicker')}} {{form.hidden_tag()}}
+        {{ form.enddate.label }} {{form.enddate(class='datepicker')}} {{form.hidden_tag()}}
+
+
+        <p>Z předmětu: </p>
+
+        <select name="subject" method="GET" action="/">
+        <option value="{{subjects[0]}}" selected>{{subjects[0]}}</option>
+            {% for subject in subjects[1:] %}
+        <option value="{{subject}}">{{subject}}</option>
+        {% endfor %}
+    </select>
+        <br><br>
+
+        <label for="startplace">Zadáno kde:</label>
+            <input type="text" autocomplete="off" id="startplace" name="splace" placeholder="Škola"><br>
+        <label for="endplace">Odevzdání kde:</label>
+            <input type="text" autocomplete="off" id="endplace" name="eplace" placeholder="Škola"><br>
+        <label for="title">Název:</label>
+            <input type="text" autocomplete="off" id="title" name="title" placeholder="Typ úkolu"><br>
+        <label for="description">Popis:</label>
+            <input type="text" autocomplete="off" id="description" name="description" placeholder="Podrobnější informace">
+
+
+        <p>Povinnost:</p>
+
+
+        <input type="radio" id="povinny" name="optianoly" value="Povinný" checked="checked">
+        <label for="povinny" >Povinný </label><br>
+        <input type="radio" id="dobrovolny" name="optianoly" value="Dobrovolný">
+        <label for="dobrovolny">Dobrovolný</label><br>
+        <input type="submit" value="Přidat úkol">
+    </form>
+</div>
+</div>
+
+
+</body>
+{% endblock %}
+</html>

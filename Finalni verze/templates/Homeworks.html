@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>Úkoly</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homeworks.css') }}">
+</head>
+<body>
+
+    <div class="topnav">
+      <a class="active" href="/homeworks">Seznam úkolů</a>
+      <a href="/add">Přidat úkol</a>
+      <a href="/timetable">Rozvrh hodin</a>
+    </div>
+
+    <h2>Seznam úkolů</h2>
+
+<div class="block">
+<div class="container">
+<table>
+    <thead>
+      <tr>
+        {% for header in headings %}
+        <th class="headers">{{ header }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+
+    <tbody>
+    {% if data %}
+      {% for row in data %}
+      <tr class="cells">
+        {% for cell in row %}
+            {% if cell == 3 %}
+                <td class="orange">{{ cell }}</td>
+            {% elif cell == 2 %}
+                <td class="orange">{{ cell }}</td>
+            {% elif cell == 1 %}
+                <td class="red">{{ cell }}</td>
+            {% elif cell == 0 %}
+                <td class="red">{{ cell }}</td>
+            {% elif cell == -1 %}
+                <td class="black">{{ cell }}</td>
+            {% elif cell == -2 %}
+                <td class="black">{{ cell }}</td>
+            {% elif cell == -3 %}
+                <td class="black">{{ cell }}</td>
+            {% elif cell == "Test" %}
+                <td class="red">{{ cell }}</td>
+            {% else %}
+                <td>{{ cell }}</td>
+            {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
